@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Automation - Control Inteligente con ESP32</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header con navegación -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-home"></i>
+                    <span>SmartHome</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                    <li><a href="#control" class="nav-link">Control</a></li>
+                    <li><a href="#sensores" class="nav-link">Sensores</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Hero Section -->
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Smart Home Automation</h1>
+                <p class="hero-subtitle">Controlá tu casa desde cualquier lugar con ESP32 y WiFi</p>
+                <div class="hero-animation">
+                    <div class="floating-icons">
+                        <i class="fas fa-lightbulb"></i>
+                        <i class="fas fa-door-open"></i>
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-background"></div>
+        </section>
+    </header>
+
+    <!-- Sección de características principales -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Vive el futuro hoy. Tu casa inteligente con ESP32.</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Iluminación</h3>
+                    <p>Control inteligente de luces con un solo clic</p>
+                    <a href="#control" class="feature-btn">Controlar</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-door-open"></i>
+                    </div>
+                    <h3>Puerta Principal</h3>
+                    <p>Acceso seguro y control remoto de tu entrada</p>
+                    <a href="#control" class="feature-btn">Ver estado</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <h3>Sensores Ambientales</h3>
+                    <p>Monitoreo en tiempo real del entorno</p>
+                    <a href="#sensores" class="feature-btn">Ver sensores</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Panel de Control IoT -->
+    <section id="control" class="control-panel">
+        <div class="container">
+            <h2 class="section-title">Panel de Control IoT</h2>
+            <div class="control-grid">
+                <!-- Control de Luz del Patio -->
+                <div class="control-card">
+                    <div class="control-header">
+                        <i class="fas fa-lightbulb control-icon"></i>
+                        <h3>Luz del Patio</h3>
+                    </div>
+                    <div class="control-status">
+                        <div class="status-indicator" id="luz-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Apagado</span>
+                        </div>
+                    </div>
+                    <div class="control-buttons">
+                        <button class="control-btn btn-on" id="luz-on" onclick="controlarDispositivo('luz', 'on')">
+                            <i class="fas fa-power-off"></i>
+                            Encender
+                        </button>
+                        <button class="control-btn btn-off" id="luz-off" onclick="controlarDispositivo('luz', 'off')">
+                            <i class="fas fa-power-off"></i>
+                            Apagar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Control de Puerta -->
+                <div class="control-card">
+                    <div class="control-header">
+                        <i class="fas fa-door-open control-icon"></i>
+                        <h3>Puerta Principal</h3>
+                    </div>
+                    <div class="control-status">
+                        <div class="status-indicator" id="puerta-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Cerrada</span>
+                        </div>
+                    </div>
+                    <div class="control-buttons">
+                        <button class="control-btn btn-on" id="puerta-on" onclick="controlarDispositivo('puerta', 'on')">
+                            <i class="fas fa-lock-open"></i>
+                            Abrir
+                        </button>
+                        <button class="control-btn btn-off" id="puerta-off" onclick="controlarDispositivo('puerta', 'off')">
+                            <i class="fas fa-lock"></i>
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Sensores -->
+    <section id="sensores" class="sensors-section">
+        <div class="container">
+            <h2 class="section-title">Sensores en Tiempo Real</h2>
+            <div class="sensors-grid">
+                <!-- Sensor LDR -->
+                <div class="sensor-card">
+                    <div class="sensor-header">
+                        <i class="fas fa-sun sensor-icon"></i>
+                        <h3>Sensor de Luz (LDR)</h3>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-value">
+                            <span id="ldr-value">0</span>
+                            <span class="sensor-unit">lux</span>
+                        </div>
+                        <div class="sensor-bar">
+                            <div class="sensor-bar-fill" id="ldr-bar"></div>
+                        </div>
+                        <div class="sensor-status" id="ldr-status">
+                            <span class="status-text">Oscuro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sensor de Lluvia -->
+                <div class="sensor-card">
+                    <div class="sensor-header">
+                        <i class="fas fa-cloud-rain sensor-icon"></i>
+                        <h3>Sensor de Lluvia</h3>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-value">
+                            <span id="lluvia-value">Seco</span>
+                        </div>
+                        <div class="weather-icon" id="weather-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="sensor-status" id="lluvia-status">
+                            <span class="status-text">Sin lluvia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado de Conexión -->
+                <div class="sensor-card">
+                    <div class="sensor-header">
+                        <i class="fas fa-wifi sensor-icon"></i>
+                        <h3>Estado de Conexión</h3>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="connection-status" id="connection-status">
+                            <span class="connection-dot"></span>
+                            <span class="connection-text">Conectado</span>
+                        </div>
+                        <div class="last-update">
+                            <small>Última actualización: <span id="last-update">--:--:--</span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <h3>Proyecto Casa Automática</h3>
+                    <p>Luciana Zapana | Tecnicatura en Automatización y Robótica</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Smart Home Automation. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="casita.js"></script>
+</body>
+</html>
